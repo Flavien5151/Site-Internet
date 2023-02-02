@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Formulaire Inscription</title>
+
+	<style>
+		fieldset {
+			border: 1px solid blue;
+			border-radius: 10px;
+			padding: 10px;
+			margin: 10px;
+		}
+		legend {
+			font-size: 20px;
+			font-weight: bold;
+		}
+		table {
+			margin: auto;
+		}
+		td {
+			padding: 10px;
+		}
+		input[type="text"],
+		input[type="email"],
+		input[type="password"] {
+			width: 100%;
+			padding: 10px;
+			border-radius: 5px;
+			border: 1px solid gray;
+		}
+		select {
+			width: 100%;
+			padding: 10px;
+			border-radius: 5px;
+			border: 1px solid gray;
+		}
+		#valider, #annuler{
+			background-color: green;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			padding: 10px 20px;
+			cursor: pointer;
+			margin-top: 10px;
+		}
+		#annuler {
+			background-color: red;
+		}
+		h1{
+			text-align: center;
+			margin-bottom: 50px;
+			text-decoration: underline;
+		}
+		.question-container {
+			width: 50%;
+			margin: 0 auto;
+			text-align: center;
+			font-family: Arial, sans-serif;
+		}
+
+		.question {
+			font-size: 18px;
+			font-weight: bold;
+			margin-bottom: 15px;
+		}
+
+		.answer-container {
+			display: flexbox;
+			justify-content: space-around;
+			align-items: center;
+			margin-bottom: 50px;
+		}
+		.answer1, .answer2, .answer3{
+			background-color: goldenrod;
+			color: white;
+			font-size: 14px;
+			padding: 10px 20px;
+			border: 1px solid gray;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-bottom: 5px;
+		}
+		.answer1:hover, .answer2:hover, .answer3:hover{
+			background-color: #318ce7;
+			color: black;
+		}
+		.correct {
+        background-color: green;
+        color: white;
+        }
+        .incorrect {
+        background-color: red;
+        color: white;
+        }
+	</style>
+	
+	
+</head>
+<body>
+	<form>
+
+		<fieldset>
+			<legend>Formulaire d'inscription</legend>
+			<table>
+				<tr>
+					<td><label>Nom</label></td>													
+					<td><input type="text" id="nom" placeholder="saisir votre nom"/> </td>
+				</tr>
+				<tr>
+					<td><label>Prénom</label></td>
+					<td><input type="text" id="prenom" placeholder="saisir votre prénom"/></td>
+				</tr>
+				<tr>
+					<td><label>Civilité</label></td>
+					<td>
+						<select>
+						<option>Monsieur</option>
+						<option>Madame</option>
+						<option>Mademoiselle</option>	
+						<option>JeuneHomme</option>					
+					    </select>
+				</td>
+				</tr>
+				<tr>
+					<td><label>Email</label></td>
+					<td><input type="email" placeholder="saisir votre Email"/></td>
+				</tr>
+
+				<tr>
+					<td>Mot de passe</td>					
+					<td>
+						<input type="password" placeholder="saisir votre mot de passe" maxlength="8" />
+					</td>
+				</tr>
+								
+					<tr>
+					<td>Confirmation de mot de passe</td>
+					<td>
+						<input type="password" placeholder="confirmer votre mot de passe" maxlength="8" />
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td colspan="2"><button id="valider" onclick="validerFormulaire()">Valider</button>  <button id="annuler" onclick="viderFormulaire()">Annuler</button></td>
+				</tr>
+
+			</table>
+		</fieldset>
+
+		<div class="questionnaire" id="questionnaire1">
+		<h1>Questionnaire</h1>
+		<div class="question-container">
+		  <div class="question">Cesi est une école de ?</div>
+		  <div class="answer-container">
+			<div class="answer1" id="answer-1-1">Une école de commerce</div>
+			<div class="answer1" id="answer-1-2">Une école d'ingénieur</div>
+			<div class="answer1" id="answer-1-3">Une école d'architecte</div>
+		  </div>
+		</div>
+		<div class="question-container">
+		  <div class="question">Combien d'années faut-il pour devenir ingénieur ?</div>
+		  <div class="answer-container">
+			<div class="answer2" id="answer-2-1">5 ans</div>
+			<div class="answer2" id="answer-2-2">6 ans</div>
+			<div class="answer2" id="answer-2-3">7 ans</div>
+		  </div>
+		</div>
+		<div class="question-container">
+			<div class="question">Quelle formation propose l'école ?</div>
+			<div class="answer-container">
+				<div class="answer3" id="answer-3-1">Ingénieur en Chimie</div>
+				<div class="answer3" id="answer-3-2">Ingénieur en Biologie</div>
+				<div class="answer3" id="answer-3-3">Ingénieur en Informatique</div>
+			</div>
+			</div>
+
+		<div id="score" style="text-align: center; font-size: 18px;">Score :</div>
+
+	</div>
+
+		<script>
+			function validerFormulaire() {
+				let nom = document.querySelector("#nom").value;
+				let prenom = document.querySelector("#prenom").value;
+				let email = document.querySelector("input[type=email]").value;
+				let motDePasse = document.querySelector("input[type=password]").value;
+				let confirmationMotDePasse = document.querySelectorAll("input[type=password]")[1].value;
+
+				if (nom === "" || prenom === "" || email === "" || motDePasse === "" || confirmationMotDePasse === "") {
+					alert("Veuillez remplir tous les champs du formulaire.");
+				} else if (motDePasse !== confirmationMotDePasse) {
+					alert("Les mots de passe ne correspondent pas.");
+				} else {
+					alert("Formulaire envoyé avec succès. Bienvenue " + prenom + " " + nom + " !");
+				}
+			}
+
+			function viderFormulaire() {
+				let inputs = document.querySelectorAll("input");
+				for (let i = 0; i < inputs.length; i++) {
+					inputs[i].value = "";
+				}
+				alert("Le formulaire a bien été annulé");
+			}
+
+
+			const correctAnswers = {
+				"answer-1-2": true,
+				"answer-2-1": true,
+				"answer-3-3": true,
+			};
+			let score = 0;
+			let nbrquest = 0;
+			let selectedAnswers = {};
+
+			const allAnswers = document.querySelectorAll(".answer1, .answer2, .answer3");
+
+			function resett(){
+				if (score === 3) {
+					score = 0;
+					nbrquest = 0;
+					selectedAnswers = {};
+					for (let answer of allAnswers) {
+						answer.classList.remove("correct");
+						answer.classList.remove("incorrect");
+					}
+					document.querySelector("#score").innerHTML = `Score : `;
+				}
+			}
+
+			function ClickRep(event) {
+				const answerId = event.target.id;
+				const answers = event.target.parentNode.querySelectorAll(".answer");
+
+				if (correctAnswers[answerId]) {
+					score++;
+					selectedAnswers[answerId] = true;
+					event.target.classList.add("correct");
+				} else {
+					selectedAnswers[answerId] = false;
+					event.target.classList.add("incorrect");
+				}
+				nbrquest++;
+				document.querySelector("#score").innerHTML = `Score : ${score}/${nbrquest}`;
+
+				if (score === 3 && nbrquest === score){
+					setTimeout(function(){
+						alert("Excellent, vous avez fait un perfect ! Votre score est de " + score + "/" + nbrquest);
+					}, 250);
+					setTimeout(function(){
+					resett();
+					}, 500);
+				}
+				else if (score === 3 && nbrquest > 3 && nbrquest < 7){
+					setTimeout(function(){
+						alert("Vous pouvez mieux faire ! Votre score est de " + score + "/" + nbrquest);
+					}, 250);
+					setTimeout(function(){
+					resett();
+					}, 500);
+				}
+				else if (score === 3 && nbrquest > 6){
+					setTimeout(function(){
+						alert("Il faut retourner s'entrainer ! Votre score est de " + score + "/" + nbrquest);
+					}, 250);
+					setTimeout(function(){
+					resett();
+					}, 500);
+				}
+			}
+
+			for (let answer of allAnswers) {
+			answer.addEventListener("click", ClickRep);
+			}
+
+
+		</script>
+</body>
+</html>
